@@ -1,20 +1,25 @@
 
 import React, { useState } from 'react';
-import { Button, TextInput, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Pressable } from 'react-native';
 
 export default function App() {
 
-  let [name, setName] = useState( "" )
+  let [submitted, setSubmitted] = useState( false )
+  let onClickHandler = () => {
+    setSubmitted( !submitted )
+  }
 
   return (
     <View style={styles.body}>
       <Text style={ styles.text } >Enter your name</Text>
-      <TextInput
+      <Pressable
+        android_ripple={ {color: 'red'} }
+        hitSlop={ { top: 50, bottom: 100, left: 50, right: 50 } }
         style={ styles.input }
         placeholder='e.g. John'
-        onChangeText = { ( value ) => setName( value ) }
+        onPress={ onClickHandler }
       />
-      <Text style={ styles.body } >New name is { name }</Text>
+      <Text style={ styles.text } >{ submitted ? 'clicked' : 'not clicked' }</Text>
     </View>
   );
 }
@@ -22,19 +27,18 @@ export default function App() {
 const styles = StyleSheet.create({
   body: {
     flex: 1,
-    backgroundColor: 'lightgray',
+    backgroundColor: 'white',
     alignItems: 'center',
-    justifyContent: 'center',
   },
   text: {
     margin: 20
   },
   input: {
-    width: 200,
     borderWidth: 1,
-    borderColor: '#ddd',
+    borderColor: 'black',
     borderRadius: 5,
-    height: 50,
-    textAlign: 'center'
+    width: 250,
+    height: 60,
+    backgroundColor: 'coral'
   }
 })
