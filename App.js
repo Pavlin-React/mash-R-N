@@ -4,19 +4,18 @@ import { Button, Linking, StyleSheet, Text, View } from 'react-native';
 
 export default function App() {
 
-  let [name, setName] = useState( "Mash" )
-  let [session, setSession] = useState( 'true' )
+  let [name, setName] = useState( "Style test" )
 
   let onClickHandler = () => {
-    setName( 'My name is Mash' )
-    setSession( () => !session )
+    setName( 'Style test is done' )
   }
 
   return (
     <View style={styles.body}>
       <Text style={ styles.text } >{ name }</Text>
-      <Button title = 'Update State' onPress={ onClickHandler }/>
-      <Text>{ session ? 'this is current session' : 'not current' }</Text>
+      <View style={ styles.button } >
+      <Button title = 'Style Text' onPress={ onClickHandler }/>
+      </View>
     </View>
   );
 }
@@ -30,5 +29,8 @@ const styles = StyleSheet.create({
   },
   text: {
     margin: 20
+  },
+  button: {
+    width: '50%'
   }
-});
+})
