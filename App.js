@@ -1,21 +1,20 @@
-import { StatusBar } from 'expo-status-bar';
+
 import React, { useState } from 'react';
-import { Button, Linking, StyleSheet, Text, View } from 'react-native';
+import { Button, TextInput, StyleSheet, Text, View } from 'react-native';
 
 export default function App() {
 
-  let [name, setName] = useState( "Style test" )
-
-  let onClickHandler = () => {
-    setName( 'Style test is done' )
-  }
+  let [name, setName] = useState( "" )
 
   return (
     <View style={styles.body}>
-      <Text style={ styles.text } >{ name }</Text>
-      <View style={ styles.button } >
-      <Button title = 'Style Text' onPress={ onClickHandler }/>
-      </View>
+      <Text style={ styles.text } >Enter your name</Text>
+      <TextInput
+        style={ styles.input }
+        placeholder='e.g. John'
+        onChangeText = { ( value ) => setName( value ) }
+      />
+      <Text style={ styles.body } >New name is { name }</Text>
     </View>
   );
 }
@@ -23,14 +22,19 @@ export default function App() {
 const styles = StyleSheet.create({
   body: {
     flex: 1,
-    backgroundColor: 'blue',
+    backgroundColor: 'lightgray',
     alignItems: 'center',
     justifyContent: 'center',
   },
   text: {
     margin: 20
   },
-  button: {
-    width: '50%'
+  input: {
+    width: 200,
+    borderWidth: 1,
+    borderColor: '#ddd',
+    borderRadius: 5,
+    height: 50,
+    textAlign: 'center'
   }
 })
