@@ -1,69 +1,33 @@
 import React from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native'
-import { createStackNavigator } from '@react-navigation/stack';
-import { background } from 'jimp';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import ScreenA from './src/ScreenA'
+import ScreenB from './src/ScreenB'
 
-const Stack = createStackNavigator();
-
-
-function ScreenA( { navigation } ) {
-
-  let onPressHandler= () => {
-    navigation.navigate( 'Screen_B' )
-  }
-
-  return(
-    <View  style={ styles.body } >
-      <Text style={ styles.text } >Screen A</Text>
-      <Pressable
-        style={ ( { pressed } ) => ( { backgroundColor: pressed ? 'yellow' : 'aqua' } ) }
-        onPress={ onPressHandler }
-      >
-        <Text style={ styles.text } >Go to screen B</Text>
-      </Pressable>
-    </View>
-  )
-}
-
-function ScreenB( { navigation } ) {
-
-  let onPressHandler = () => {
-    navigation.navigate( 'Screen_A' )
-  }
-
-  return(
-    <View  style={ styles.body } >
-      <Text style={ styles.text } >Screen B</Text>
-      <Pressable
-        style={ ( { pressed } ) => ( { backgroundColor: pressed ? 'yellow' : 'aqua' } ) }
-        onPress={ onPressHandler }
-      >
-        <Text style={ styles.text } >Go to screen A</Text>
-      </Pressable>
-    </View>
-  )
-}
+const Drawer = createDrawerNavigator();
 
 export default function App() {
   
   return (
     <NavigationContainer>
-      <Stack.Navigator
-        screenOptions={{
-            header: () => null
-          }}
+      <Drawer.Navigator
+      initialRouteName='Screen_A'
+      edgeWidth={ 500 }
+      screenOptions={{
+        headerShown: true
+      }}
       >
-        <Stack.Screen
+        <Drawer.Screen
           name='Screen_A'
           component={ ScreenA }
           
         />
-        <Stack.Screen
+        <Drawer.Screen
           name='Screen_B'
           component={ ScreenB }
         />
-      </Stack.Navigator>
+      </Drawer.Navigator>
     </NavigationContainer>
   );
 }
