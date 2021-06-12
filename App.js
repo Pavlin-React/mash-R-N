@@ -1,44 +1,83 @@
+import React from 'react';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native'
+import { createStackNavigator } from '@react-navigation/stack';
+import { background } from 'jimp';
 
-import React, { useState } from 'react';
-import { StyleSheet, Text, View, Pressable } from 'react-native';
+const Stack = createStackNavigator();
 
-export default function App() {
 
-  let [submitted, setSubmitted] = useState( false )
-  let onClickHandler = () => {
-    setSubmitted( !submitted )
+function ScreenA( { navigation } ) {
+
+  let onPressHandler= () => {
+    navigation.navigate( 'Screen_B' )
   }
 
-  return (
-    <View style={styles.body}>
-      <Text style={ styles.text } >Enter your name</Text>
+  return(
+    <View  style={ styles.body } >
+      <Text style={ styles.text } >Screen A</Text>
       <Pressable
-        android_ripple={ {color: 'red'} }
-        hitSlop={ { top: 50, bottom: 100, left: 50, right: 50 } }
-        style={ styles.input }
-        placeholder='e.g. John'
-        onPress={ onClickHandler }
-      />
-      <Text style={ styles.text } >{ submitted ? 'clicked' : 'not clicked' }</Text>
+        style={ ( { pressed } ) => ( { backgroundColor: pressed ? 'yellow' : 'aqua' } ) }
+        onPress={ onPressHandler }
+      >
+        <Text style={ styles.text } >Go to screen B</Text>
+      </Pressable>
     </View>
+  )
+}
+
+function ScreenB( { navigation } ) {
+
+  let onPressHandler = () => {
+    navigation.navigate( 'Screen_A' )
+  }
+
+  return(
+    <View  style={ styles.body } >
+      <Text style={ styles.text } >Screen B</Text>
+      <Pressable
+        style={ ( { pressed } ) => ( { backgroundColor: pressed ? 'yellow' : 'aqua' } ) }
+        onPress={ onPressHandler }
+      >
+        <Text style={ styles.text } >Go to screen A</Text>
+      </Pressable>
+    </View>
+  )
+}
+
+export default function App() {
+  
+  return (
+    <NavigationContainer>
+      <Stack.Navigator
+        screenOptions={{
+            header: () => null
+          }}
+      >
+        <Stack.Screen
+          name='Screen_A'
+          component={ ScreenA }
+          
+        />
+        <Stack.Screen
+          name='Screen_B'
+          component={ ScreenB }
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
+
 
 const styles = StyleSheet.create({
   body: {
     flex: 1,
-    backgroundColor: 'white',
     alignItems: 'center',
+    justifyContent: 'center'
   },
   text: {
-    margin: 20
-  },
-  input: {
-    borderWidth: 1,
-    borderColor: 'black',
-    borderRadius: 5,
-    width: 250,
-    height: 60,
-    backgroundColor: 'coral'
+    fontSize: 40,
+    fontWeight: 'bold',
+    margin: 10,
   }
 })
